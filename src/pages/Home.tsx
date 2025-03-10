@@ -1,5 +1,6 @@
+import { PieChart } from "react-minimal-pie-chart";
 import BarChart from "../components/charts/BarChart";
-import PieChart from "../components/charts/PieChart";
+import ConeChart from "../components/charts/PieChart";
 import WorkoutPlanCard from "../components/WorkoutPlanCard";
 import { WorkoutPlan } from "../utils/interfaces";
 import { workoutPlans } from "../utils/sampleData";
@@ -38,7 +39,17 @@ export default function Home() {
       <div className="w-[80%]  h-[100%] p-6 flex flex-col md:flex-row justify-between">
         {/* <LineChart data={dailyWorkoutData} /> */}
         <BarChart data={sampleBarChartData} />
-        <PieChart data={exerciseDistributionData} />
+        <div className="w-[15%]">
+          <PieChart
+            labelPosition={10}
+            data={[
+              { title: "Completed", value: 30, color: "gray" },
+              { title: "Remaining", value: 40, color: "#C13C37" },
+            ]}
+          />
+        </div>
+        ;
+        <ConeChart data={exerciseDistributionData} />
       </div>
       <div className=" mt-6 w-full  p-20 ">
         <h1 className="text-3xl font-bold mb-2 text-center">Workout Plans</h1>

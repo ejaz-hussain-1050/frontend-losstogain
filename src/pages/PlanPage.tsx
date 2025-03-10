@@ -13,7 +13,9 @@ const WorkoutPlanPage: React.FC = () => {
     <div className="flex flex-wrap w-[80%] h-auto gap-5">
       {selectedPlan === undefined && (
         <div className="bg-gray-800 w-full text-white p-20 rounded-lg shadow-md">
-          <h1 className="text-2xl font-bold mb-2 text-center">Workout Plans</h1>
+          <h1 className="text-2xl font-bold mb-2 text-center">
+            Personalized AI Workout Plans
+          </h1>
           <p className=" text-center">
             Choose your personalized workout plans for yourself to be Fit
           </p>

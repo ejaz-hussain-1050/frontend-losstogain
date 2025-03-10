@@ -72,7 +72,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
                 }`
               }
             >
-              Workout Plans
+              AI Workout Plans
             </NavLink>
           </li>
           <li>
@@ -86,7 +86,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
                 }`
               }
             >
-              Health Blogs
+              Personalized Health Blogs
             </NavLink>
           </li>
           <li>

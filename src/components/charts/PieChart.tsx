@@ -14,7 +14,7 @@ export interface MyPieChartProps {
   colors?: string[];
 }
 
-const PieChart: React.FC<MyPieChartProps> = ({
+const ConeChart: React.FC<MyPieChartProps> = ({
   data,
   width = "100%",
   height = 300,
@@ -51,4 +51,4 @@ const PieChart: React.FC<MyPieChartProps> = ({
   );
 };
 
-export default PieChart;
+export default ConeChart;
