@@ -1,9 +1,9 @@
 // src/store/planSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { WorkoutPlan } from "../utils/interfaces";
+import { IWorkoutPlan } from "../utils/interfaces";
 
 interface PlanState {
-  plan: WorkoutPlan | null;
+  plan: IWorkoutPlan | null;
 }
 
 const initialState: PlanState = {
@@ -15,11 +15,11 @@ const planSlice = createSlice({
   initialState,
   reducers: {
     // Sets the single workout plan
-    setPlan(state, action: PayloadAction<WorkoutPlan>) {
+    setPlan(state, action: PayloadAction<IWorkoutPlan>) {
       state.plan = action.payload;
     },
     // Updates fields of the existing plan (if any)
-    updatePlan(state, action: PayloadAction<Partial<WorkoutPlan>>) {
+    updatePlan(state, action: PayloadAction<Partial<IWorkoutPlan>>) {
       if (state.plan) {
         state.plan = { ...state.plan, ...action.payload };
       }

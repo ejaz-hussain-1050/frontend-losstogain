@@ -1,14 +1,19 @@
 // src/pages/Plans.tsx
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import PlanDetails from "../components/PlanDetails";
 import WorkoutPlanCard from "../components/WorkoutPlanCard";
-import { WorkoutPlan } from "../utils/interfaces";
-import { workoutPlans } from "../utils/sampleData";
+import { RootState } from "../store/store";
+import { IWorkoutPlan } from "../utils/interfaces";
 
 const WorkoutPlanPage: React.FC = () => {
-  const [selectedPlan, setSelectedPlan] = useState<WorkoutPlan | undefined>(
+  const [selectedPlan, setSelectedPlan] = useState<IWorkoutPlan | undefined>(
     undefined
   );
+  const workoutPlans = useSelector(
+    (state: RootState) => state.workoutPlans.workoutPlans
+  );
+
   return (
     <div className="flex flex-wrap w-[80%] h-auto gap-5">
       {selectedPlan === undefined && (
@@ -22,7 +27,7 @@ const WorkoutPlanPage: React.FC = () => {
         </div>
       )}
       {selectedPlan === undefined ? (
-        workoutPlans.map((item: WorkoutPlan) => {
+        workoutPlans?.map((item: IWorkoutPlan) => {
           return (
             <div
               className="md:w-[40%] cursor-pointer"

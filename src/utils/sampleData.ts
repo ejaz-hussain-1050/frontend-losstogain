@@ -1,5 +1,5 @@
 // data/workouts.ts
-import { Workout, WorkoutPlan } from "./interfaces";
+import { IWorkoutPlan, Workout } from "./interfaces";
 
 /**
  * A mock array of workouts corresponding to your image files.
@@ -212,7 +212,7 @@ export const workouts: Workout[] = [
 /**
  * A mock array of workout plans, each referencing workouts by their ID.
  */
-export const workoutPlans: WorkoutPlan[] = [
+export const workoutPlans: IWorkoutPlan[] = [
   {
     id: "p1",
     name: "Beginner Basics",

@@ -1,9 +1,12 @@
 // src/pages/Profile.tsx
-import React from "react";
-import BarChart from "../components/charts/BarChart";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserProfile } from "../api/auth";
 import ConeChart from "../components/charts/PieChart";
 import WorkoutPlanCard from "../components/WorkoutPlanCard";
-import { WorkoutPlan } from "../utils/interfaces";
+import { setUser, UserState } from "../store/authSlice";
+import { AppDispatch, RootState } from "../store/store";
+import { IWorkoutPlan } from "../utils/interfaces";
 import { workoutPlans } from "../utils/sampleData";
 
 interface UserProfile {
@@ -19,41 +22,43 @@ interface UserProfile {
 }
 
 const Profile: React.FC = () => {
+  const user = useSelector((state: RootState) => state.auth.user);
+  const [previousState, setPreviousState] = useState<UserState | null>();
+  const dispatch = useDispatch<AppDispatch>();
   // Sample user data for demonstration purposes
-  const user: UserProfile = {
-    name: "John Doe",
-    email: "johndoe@example.com",
-    age: 30,
-    height: "6 ft",
-    weight: "180 lbs",
+  const profile = {
     totalWorkouts: 150,
     totalDuration: 3500, // total minutes spent working out
     fitnessGoals: "Build muscle and increase stamina",
   };
 
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setPreviousState((prevState) => {
+      return { ...prevState, [e.target.name]: e.target.value };
+    });
+  };
+
+  useEffect(() => {
+    setPreviousState(user);
+  }, []);
   return (
     <div className="w-full p-8  flex flex-col items-center">
       <div className="w-[80%] mx-auto bg-gray-800 text-white p-6 rounded-xl shadow-lg">
         {/* Header Section with Profile Picture and Basic Info */}
         <div className="flex flex-col md:flex-row items-center">
-          {user.profilePicture ? (
-            <svg
-              className="w-8 h-8 text-gray-700"
-              fill="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
-            </svg>
-          ) : (
-            <img
-              src={user.profilePicture}
-              alt={user.name}
-              className="w-32 h-32 rounded-full object-cover border-4 border-primary"
-            />
-          )}
+          <svg
+            className="w-8 h-8 text-gray-700"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v3h20v-3c0-3.3-6.7-5-10-5z" />
+          </svg>
+
           <div className="mt-4 md:mt-0 md:ml-6">
-            <h1 className="text-3xl font-bold">{user.name}</h1>
-            <p className="text-gray-400">{user.email}</p>
+            <h1 className="text-3xl font-bold">{user?.fullName}</h1>
+            <p className="text-gray-400">{user?.email}</p>
           </div>
         </div>
 
@@ -63,13 +68,13 @@ const Profile: React.FC = () => {
           <div>
             <h2 className="text-2xl font-semibold mb-2">Personal Info</h2>
             <p>
-              <span className="font-bold">Age:</span> {user.age}
+              <span className="font-bold">Age:</span> {user?.age}
             </p>
             <p>
-              <span className="font-bold">Height:</span> {user.height}
+              <span className="font-bold">Height:</span> {user?.height} cm
             </p>
             <p>
-              <span className="font-bold">Weight:</span> {user.weight}
+              <span className="font-bold">Weight:</span> {user?.weight} Kg
             </p>
           </div>
 
@@ -78,21 +83,84 @@ const Profile: React.FC = () => {
             <h2 className="text-2xl font-semibold mb-2">Fitness Summary</h2>
             <p>
               <span className="font-bold">Total Workouts:</span>{" "}
-              {user.totalWorkouts}
+              {profile.totalWorkouts}
             </p>
             <p>
               <span className="font-bold">Total Duration:</span>{" "}
-              {user.totalDuration} minutes
+              {profile.totalDuration} minutes
             </p>
             <p>
-              <span className="font-bold">Goals:</span> {user.fitnessGoals}
+              <span className="font-bold">Goals:</span> {profile.fitnessGoals}
             </p>
           </div>
         </div>
       </div>
       <div className="w-[80%]  h-[100%] p-6 flex flex-col md:flex-row justify-between">
         {/* <LineChart data={dailyWorkoutData} /> */}
-        <BarChart data={sampleBarChartData} />
+        <div className="space-y-4">
+          <div>
+            <label htmlFor="weight" className="block mb-1">
+              Weight (kg)
+            </label>
+            <input
+              id="weight"
+              name="weight"
+              type="number"
+              value={previousState?.weight}
+              onChange={handleChange}
+              placeholder="Enter your weight"
+              className="w-full p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+          <div>
+            <label htmlFor="height" className="block mb-1">
+              Height (cm)
+            </label>
+            <input
+              id="height"
+              name="height"
+              type="number"
+              value={previousState?.height}
+              onChange={handleChange}
+              placeholder="Enter your height"
+              className="w-full p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+          <div>
+            <label htmlFor="description" className="block mb-1">
+              Description
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              value={previousState?.description}
+              onChange={handleChange}
+              placeholder="Describe your fitness goals"
+              className="w-full p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+          <button
+            type="submit"
+            onClick={async (e) => {
+              try {
+                e.preventDefault();
+                console.log({ previousState });
+                await updateUserProfile({
+                  uid: previousState?.uid,
+                  height: previousState?.height,
+                  weight: previousState?.weight,
+                  description: previousState?.description,
+                });
+                dispatch(setUser(previousState));
+              } catch (error: any) {
+                console.log(error.message);
+              }
+            }}
+            className="w-full bg-white text-gray-800 py-2 rounded hover:bg-primary-dark transition-colors"
+          >
+            Update Profile
+          </button>
+        </div>
         <ConeChart data={exerciseDistributionData} />
       </div>
       <div className=" mt-6 w-full  p-20 ">
@@ -102,7 +170,7 @@ const Profile: React.FC = () => {
         </p>
       </div>
       <div className="p-6 w-full flex flex-wrap">
-        {workoutPlans.slice(1, 4).map((item: WorkoutPlan) => {
+        {workoutPlans.slice(1, 4).map((item: IWorkoutPlan) => {
           return (
             <div className="md:w-[40%] cursor-pointer">
               <WorkoutPlanCard plan={item} />

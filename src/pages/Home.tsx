@@ -2,7 +2,7 @@ import { PieChart } from "react-minimal-pie-chart";
 import BarChart from "../components/charts/BarChart";
 import ConeChart from "../components/charts/PieChart";
 import WorkoutPlanCard from "../components/WorkoutPlanCard";
-import { WorkoutPlan } from "../utils/interfaces";
+import { IWorkoutPlan } from "../utils/interfaces";
 import { workoutPlans } from "../utils/sampleData";
 
 export default function Home() {
@@ -58,7 +58,7 @@ export default function Home() {
         </p>
       </div>
       <div className="p-6 w-full flex flex-wrap">
-        {workoutPlans.slice(1, 3).map((item: WorkoutPlan) => {
+        {workoutPlans.slice(1, 3).map((item: IWorkoutPlan) => {
           return (
             <div className="md:w-[40%] cursor-pointer">
               <WorkoutPlanCard plan={item} />

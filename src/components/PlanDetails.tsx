@@ -1,11 +1,10 @@
 // src/components/PlanDetails.tsx
 import React from "react";
-import { WorkoutPlan } from "../utils/interfaces";
-import { workouts } from "../utils/sampleData";
+import { IWorkoutPlan, Workout } from "../utils/interfaces";
 import WorkoutMiniCard from "./WorkoutMiniCard";
 
 interface PlanDetailsProps {
-  plan: WorkoutPlan;
+  plan: IWorkoutPlan;
 }
 
 const PlanDetails: React.FC<PlanDetailsProps> = ({ plan }) => {
@@ -27,13 +26,8 @@ const PlanDetails: React.FC<PlanDetailsProps> = ({ plan }) => {
           </button>
         </div>
         <div className="space-y-4">
-          {plan?.workoutIds?.map((id) => {
-            const temp = workouts.find((item) => item.id === id);
-            return temp ? (
-              <WorkoutMiniCard key={temp.id} workout={temp} />
-            ) : (
-              <></>
-            );
+          {plan?.workouts?.map((item: Workout) => {
+            return <WorkoutMiniCard workout={item} />;
           })}
         </div>
       </div>

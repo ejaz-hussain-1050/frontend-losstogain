@@ -1,9 +1,14 @@
 // src/components/Sidebar.tsx
 import React from "react";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { auth } from "../config/firebaseConfig";
+import { logout } from "../store/authSlice";
+import { AppDispatch } from "../store/store";
 import { SidebarProps } from "../utils/interfaces";
 
 const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
+  const dispatch = useDispatch<AppDispatch>();
   return (
     <div
       className={`fixed inset-y-0 left-0 md:top-80 z-30 md:w-[20%] bg-white overflow-y-auto transform transition-transform duration-300 ease-in-out ${
@@ -34,7 +39,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
         <ul className="space-y-2">
           <li>
             <NavLink
-              to="/"
+              to="/dashboard"
               end
               className={({ isActive }) =>
                 `block px-4 py-2 rounded ${
@@ -49,7 +54,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
           </li>
           <li>
             <NavLink
-              to="/workouts"
+              to="/dashboard/workouts"
               className={({ isActive }) =>
                 `block px-4 py-2 rounded ${
                   isActive
@@ -63,7 +68,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
           </li>
           <li>
             <NavLink
-              to="/plans"
+              to="/dashboard/plans"
               className={({ isActive }) =>
                 `block px-4 py-2 rounded ${
                   isActive
@@ -77,7 +82,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
           </li>
           <li>
             <NavLink
-              to="/blogs"
+              to="/dashboard/blogs"
               className={({ isActive }) =>
                 `block px-4 py-2 rounded ${
                   isActive
@@ -91,7 +96,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
           </li>
           <li>
             <NavLink
-              to="/profile"
+              to="/dashboard/profile"
               className={({ isActive }) =>
                 `block px-4 py-2 rounded ${
                   isActive
@@ -104,18 +109,17 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, toggleSidebar }) => {
             </NavLink>
           </li>
           <li>
-            <NavLink
-              to="/signin"
-              className={({ isActive }) =>
-                `block px-4 py-2 rounded ${
-                  isActive
-                    ? "bg-gray-800 text-white"
-                    : "text-gray-700 hover:bg-gray-200"
-                }`
+            <button
+              onClick={async () => {
+                await auth.signOut();
+                dispatch(logout());
+              }}
+              className={
+                "block px-4 py-2 rounded text-gray-700 hover:bg-gray-200"
               }
             >
               Logout
-            </NavLink>
+            </button>
           </li>
         </ul>
       </nav>

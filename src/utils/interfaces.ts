@@ -1,35 +1,39 @@
-// src/interfaces.ts
+// Enums for better consistency
+export enum WorkoutCategory {
+  STRENGTH = "Strength",
+  CARDIO = "Cardio",
+  YOGA = "Yoga",
+  HIIT = "HIIT",
+  FLEXIBILITY = "Flexibility",
+}
 
+export type DifficultyLevel = "Beginner" | "Intermediate" | "Advanced";
+export type ProgressStatus = "Not Started" | "In Progress" | "Completed";
+
+// Core Workout Interface
 export interface Workout {
   id: string;
   name: string;
   imageUrl: string;
   description: string;
-  duration: number;
-  created_at?: string;
-  updated_at?: string;
+  duration: number; // Duration in minutes
+  createdAt?: string;
+  updatedAt?: string;
 }
 
-export interface UserProgress {
-  totalTime: number;
-  date: string;
-}
-
-export interface WorkoutPlan {
-  imageUrl: string;
+// Workout Plan Interface
+export interface IWorkoutPlan {
   id: string;
   name: string;
-  workouts?: Workout[];
-  description?: string;
-  workoutIds?: string[];
-  duration: number;
+  imageUrl: string;
+  description: string;
+  duration: number; // Total duration in minutes
+  workouts?: Workout[]; // List of workouts in the plan
+  workoutIds?: string[]; // Store workout IDs separately for reference
 }
 
-export interface WorkoutPlanCardProps {
-  plan: WorkoutPlan;
-}
-
-export interface UserWorkoutPlanType {
+// User's Workout Plan
+export interface UserWorkoutPlan {
   id: string;
   name: string;
   userWorkouts: {
@@ -38,21 +42,27 @@ export interface UserWorkoutPlanType {
   }[];
 }
 
+// Blog Interface (Optimized for SEO)
+export interface Blog {
+  id: string;
+  title: string;
+  author: string;
+  writeTime: Date;
+  content: string;
+  imageUrl: string;
+}
+
+// UI Component Props
 export interface WorkoutCardProps {
   workout: Workout;
 }
 
-export interface UserWorkoutProps {
-  workout: Workout;
-  userProgress: UserProgress;
-}
-
-export interface WorkoutPlanProps {
-  plan: WorkoutPlan;
+export interface WorkoutPlanCardProps {
+  plan: IWorkoutPlan;
 }
 
 export interface UserWorkoutPlanProps {
-  userPlan: UserWorkoutPlanType;
+  userPlan: UserWorkoutPlan;
 }
 
 export interface HeaderProps {
@@ -62,14 +72,5 @@ export interface HeaderProps {
 export interface SidebarProps {
   sidebarOpen: boolean;
   toggleSidebar: () => void;
-}
-
-// src/interfaces.ts
-export interface Blog {
-  id: string;
-  title: string;
-  author: string;
-  writeTime: string; // You can also use Date if you prefer
-  content: string;
-  imageUrl: string;
+  userRole?: "admin" | "user"; // Role-based UI
 }

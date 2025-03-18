@@ -4,10 +4,10 @@ import { WorkoutCardProps } from "../utils/interfaces";
 
 const WorkoutCard: React.FC<WorkoutCardProps> = ({ workout }) => {
   return (
-    <div className=" rounded-lg p-5 max-h-80 w-80">
+    <div className=" rounded-lg p-5 max-h-80 w-80 m-5">
       <img
         src={workout.imageUrl}
-        alt={workout.name}
+        alt={"No Image"}
         className="h-40 w-40 object-cover rounded-full "
       />
       <h2 className="font-bold mt-2">{workout.name}</h2>
