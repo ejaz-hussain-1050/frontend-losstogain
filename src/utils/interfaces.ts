@@ -55,6 +55,8 @@ export interface Blog {
 // UI Component Props
 export interface WorkoutCardProps {
   workout: Workout;
+  isSelected?: boolean;
+  setSelected?: (workout: Workout) => void;
 }
 
 export interface WorkoutPlanCardProps {

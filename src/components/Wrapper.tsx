@@ -3,15 +3,19 @@ import { doc, DocumentSnapshot, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import {
   fetchGeneratedHealthBlogs,
   fetchGeneratedWorkoutPlans,
   fetchGeneratedWorkouts,
 } from "../api/ai";
+import { getWorkoutPlansByUser, getWorkoutsByUser } from "../api/workoutApis";
 import { auth, db } from "../config/firebaseConfig";
 import { logout, setUser } from "../store/authSlice";
 import { setBlogs } from "../store/blogsSlice";
 import { AppDispatch, RootState } from "../store/store";
+import { setUserPlans } from "../store/userPlansSlice";
+import { setUserWorkouts } from "../store/userWorkoutSlice";
 import { setWorkoutPlans } from "../store/workoutPlanSlice";
 import { setWorkouts } from "../store/workoutSlice";
 import Header from "./Header";
@@ -64,6 +68,23 @@ const Wrapper: React.FC = () => {
 
     return () => unsubscribe(); // Cleanup listener on unmount
   }, []);
+
+  const storeWorkoutsData = async () => {
+    try {
+      const plans = await getWorkoutPlansByUser(user?.uid ?? "");
+      dispatch(setUserPlans(plans));
+      const workouts = await getWorkoutsByUser(user?.uid ?? "");
+      dispatch(setUserWorkouts(workouts));
+    } catch (error) {
+      console.log(error?.message);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      storeWorkoutsData();
+    }
+  }, [user]);
   const generateAndStoreWorkoutsPlans = async (
     weight: number,
     height: number,
@@ -144,6 +165,7 @@ const Wrapper: React.FC = () => {
           <Outlet />
         </main>
       </div>
+      <ToastContainer />
     </div>
   );
 };
