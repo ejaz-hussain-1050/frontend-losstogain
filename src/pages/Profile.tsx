@@ -1,6 +1,8 @@
 // src/pages/Profile.tsx
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { updateUserProfile } from "../api/auth";
 import ConeChart from "../components/charts/PieChart";
 import WorkoutPlanCard from "../components/WorkoutPlanCard";
@@ -25,6 +27,7 @@ const Profile: React.FC = () => {
   const user = useSelector((state: RootState) => state.auth.user);
   const [previousState, setPreviousState] = useState<UserState | null>();
   const dispatch = useDispatch<AppDispatch>();
+  const navigation = useNavigate();
   // Sample user data for demonstration purposes
   const profile = {
     totalWorkouts: 150,
@@ -152,6 +155,8 @@ const Profile: React.FC = () => {
                   description: previousState?.description,
                 });
                 dispatch(setUser(previousState));
+                toast("Profile Updated Successfully");
+                navigation("/dashboard");
               } catch (error: any) {
                 console.log(error.message);
               }

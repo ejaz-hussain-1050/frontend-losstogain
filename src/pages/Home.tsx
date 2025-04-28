@@ -1,13 +1,22 @@
+import { useState } from "react";
 import { PieChart } from "react-minimal-pie-chart";
+import { useSelector } from "react-redux";
 import BarChart from "../components/charts/BarChart";
 import ConeChart from "../components/charts/PieChart";
-import WorkoutPlanCard from "../components/WorkoutPlanCard";
-import { IWorkoutPlan } from "../utils/interfaces";
-import { workoutPlans } from "../utils/sampleData";
+import WorkoutCard from "../components/WorkoutCard";
+import WorkoutProgress from "../components/WorkoutProgress";
+import { RootState } from "../store/store";
+import { Workout } from "../utils/interfaces";
 
 export default function Home() {
+  const [selectedWorkout, setSelectedWorkout] = useState<Workout | undefined>(
+    undefined
+  );
+  const userWorkouts = useSelector(
+    (state: RootState) => state.userWorkouts.workouts
+  );
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full flex flex-col items-center p-4">
       <div className="bg-gray-800 w-full text-white p-20 rounded-lg shadow-md">
         <h1 className="text-2xl font-bold mb-2 text-center">LOSS TO GAIN</h1>
         <p className=" text-center">
@@ -52,20 +61,39 @@ export default function Home() {
         <ConeChart data={exerciseDistributionData} />
       </div>
       <div className=" mt-6 w-full  p-20 ">
-        <h1 className="text-3xl font-bold mb-2 text-center">Workout Plans</h1>
-        <p className=" text-center">
-          Choose your personalized workout plans for yourself to be Fit
-        </p>
+        <h1 className="text-3xl font-bold mb-1 text-center">
+          {selectedWorkout ? selectedWorkout.name : "User Workouts"}
+        </h1>
+        {selectedWorkout === undefined && (
+          <p className=" text-center">
+            Choose your personalized workout plans for yourself to be Fit
+          </p>
+        )}
       </div>
-      <div className="p-6 w-full flex flex-wrap">
-        {workoutPlans.slice(1, 3).map((item: IWorkoutPlan) => {
-          return (
-            <div className="md:w-[40%] cursor-pointer">
-              <WorkoutPlanCard plan={item} />
-            </div>
-          );
-        })}
-      </div>
+      {selectedWorkout ? (
+        <div className="p-6">
+          <WorkoutProgress
+            workout={selectedWorkout}
+            setSelected={(workout: Workout | undefined) => {
+              setSelectedWorkout(workout);
+            }}
+          />
+        </div>
+      ) : (
+        <div className="p-6 w-full flex flex-wrap">
+          {userWorkouts?.map((item: Workout) => {
+            return (
+              <WorkoutCard
+                workout={item}
+                isSelected={true}
+                setSelected={(workout: Workout) => {
+                  setSelectedWorkout(workout);
+                }}
+              />
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

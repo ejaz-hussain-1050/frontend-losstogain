@@ -19,7 +19,7 @@ const BarChart: React.FC<MyBarChartProps> = ({
   barColor = "#75716E", // default blue color
 }) => {
   return (
-    <div className="h-80 w-[40%] p-4">
+    <div className="h-80 w-[20rem] p-4">
       <ResponsiveContainer width="100%" height="100%">
         <ReBarChart data={data}>
           {/* <CartesianGrid strokeDasharray="3 3" stroke="#ccc" /> */}
