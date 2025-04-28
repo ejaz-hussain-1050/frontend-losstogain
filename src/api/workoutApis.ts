@@ -14,7 +14,7 @@ export const createWorkoutPlan = async (
   uid: string
 ): Promise<AxiosResponse<{ id: string; message: string }>> => {
   console.log(workoutPlan, uid);
-  return axios.post(process.env.REACT_APP_BACKEND_URL + "/workoutPlans", {
+  return axios.post(import.meta.env.VITE_BACKEND_URL + "/workoutPlans", {
     ...workoutPlan,
     userId: uid,
   });
@@ -24,7 +24,7 @@ export const getWorkoutPlansByUser = async (
   userId: string
 ): Promise<IWorkoutPlan[]> => {
   const response = await axios.get(
-    `${process.env.REACT_APP_BACKEND_URL}/workoutPlans/${userId}`
+    `${import.meta.env.VITE_BACKEND_URL}/workoutPlans/${userId}`
   );
   console.log(response.data);
   return response.data;
@@ -35,7 +35,7 @@ export const createWorkout = async (
   workout: Workout,
   uid: string
 ): Promise<AxiosResponse<{ id: string; message: string }>> => {
-  return axios.post(`${process.env.REACT_APP_BACKEND_URL}/workouts`, {
+  return axios.post(`${import.meta.env.VITE_BACKEND_URL}/workouts`, {
     ...workout,
     userId: uid,
   });
@@ -43,7 +43,7 @@ export const createWorkout = async (
 
 export const getWorkoutsByUser = async (userId: string): Promise<Workout[]> => {
   const response = await axios.get(
-    `${process.env.REACT_APP_BACKEND_URL}/workouts/${userId}`
+    `${import.meta.env.VITE_BACKEND_URL}/workouts/${userId}`
   );
   console.log(response.data);
   return response.data;
@@ -51,7 +51,7 @@ export const getWorkoutsByUser = async (userId: string): Promise<Workout[]> => {
 export const deleteWorkout = async (workoutId: string): Promise<void> => {
   try {
     await axios.delete(
-      `${process.env.REACT_APP_BACKEND_URL}/workouts/${workoutId}`
+      `${import.meta.env.VITE_BACKEND_URL}/workouts/${workoutId}`
     );
     console.log("Workout deleted successfully");
   } catch (error) {
@@ -65,7 +65,7 @@ export const trackProgress = async (
 ): Promise<AxiosResponse<{ id: string; message: string }>> => {
   console.log(progress);
   const response = await axios.post(
-    `${process.env.REACT_APP_BACKEND_URL}/progress`,
+    `${import.meta.env.VITE_BACKEND_URL}/progress`,
     progress
   );
   return response.data;
@@ -75,7 +75,7 @@ export const getWorkoutProgress = async (
   workoutId: string
 ): Promise<Progress[]> => {
   const response = await axios.get(
-    `${process.env.REACT_APP_BACKEND_URL}/progress/${workoutId}`
+    `${import.meta.env.VITE_BACKEND_URL}/progress/${workoutId}`
   );
   console.log(response.data);
   return response.data;

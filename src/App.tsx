@@ -9,6 +9,7 @@ import SignUp from "./pages/SignUp";
 import Workouts from "./pages/WorkoutPage";
 
 const App = () => {
+  console.log(import.meta.env.VITE_BACKEND_URL);
   return (
     <BrowserRouter>
       <Routes>

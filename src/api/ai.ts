@@ -7,7 +7,7 @@ export const fetchGeneratedWorkouts = async (
   description: string
 ): Promise<Workout[]> => {
   const response = await axios.post(
-    `${process.env.REACT_APP_BACKEND_URL}/generateWorkouts`,
+    `${import.meta.env.VITE_BACKEND_URL}/generateWorkouts`,
     {
       weight,
       height,
@@ -23,7 +23,7 @@ export const fetchGeneratedWorkoutPlans = async (
   description: string
 ): Promise<IWorkoutPlan[]> => {
   const response = await axios.post(
-    `${process.env.REACT_APP_BACKEND_URL}/generateWorkoutPlans`,
+    `${import.meta.env.VITE_BACKEND_URL}/generateWorkoutPlans`,
     {
       weight,
       height,
@@ -39,7 +39,7 @@ export const fetchGeneratedHealthBlogs = async (
   description: string
 ): Promise<Blog[]> => {
   const response = await axios.post(
-    `${process.env.REACT_APP_BACKEND_URL}/generateBlogs`,
+    `${import.meta.env.VITE_BACKEND_URL}/generateBlogs`,
     {
       weight,
       height,
