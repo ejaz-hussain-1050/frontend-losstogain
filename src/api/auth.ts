@@ -80,9 +80,9 @@ import { updateDoc } from "firebase/firestore";
 
 interface UserProfileUpdate {
   uid: string;
-  height: number;
-  weight: number;
-  description: string;
+  height?: number;
+  weight?: number;
+  description?: string;
 }
 
 export const updateUserProfile = async ({
@@ -107,4 +107,3 @@ export const updateUserProfile = async ({
     throw error;
   }
 };
-

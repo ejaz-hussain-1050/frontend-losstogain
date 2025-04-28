@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // src/components/Wrapper.tsx
 import { doc, DocumentSnapshot, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
@@ -75,7 +76,7 @@ const Wrapper: React.FC = () => {
       dispatch(setUserPlans(plans));
       const workouts = await getWorkoutsByUser(user?.uid ?? "");
       dispatch(setUserWorkouts(workouts));
-    } catch (error) {
+    } catch (error: any) {
       console.log(error?.message);
     }
   };

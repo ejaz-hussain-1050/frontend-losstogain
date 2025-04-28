@@ -23,7 +23,6 @@ const BlogDetails: React.FC<BlogDetailsProps> = ({ blog }) => {
         <h1 className="text-3xl font-bold mb-4">{blog.title}</h1>
         <div className="flex items-center text-sm text-gray-500 mb-4">
           <span className="mr-4">By {blog.author}</span>
-          <span>{blog.writeTime}</span>
         </div>
         <div className="text-gray-700 leading-relaxed whitespace-pre-line">
           {blog.content}

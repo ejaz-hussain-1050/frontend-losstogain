@@ -11,18 +11,6 @@ import { AppDispatch, RootState } from "../store/store";
 import { IWorkoutPlan } from "../utils/interfaces";
 import { workoutPlans } from "../utils/sampleData";
 
-interface UserProfile {
-  name: string;
-  email: string;
-  age: number;
-  height: string;
-  weight: string;
-  profilePicture?: string;
-  totalWorkouts: number;
-  totalDuration: number; // in minutes
-  fitnessGoals: string;
-}
-
 const Profile: React.FC = () => {
   const user = useSelector((state: RootState) => state.auth.user);
   const [previousState, setPreviousState] = useState<UserState | null>();
@@ -39,7 +27,8 @@ const Profile: React.FC = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setPreviousState((prevState) => {
-      return { ...prevState, [e.target.name]: e.target.value };
+      if (!prevState) return null;
+      if (prevState) return { ...prevState, [e?.target.name]: e.target.value };
     });
   };
 
@@ -149,7 +138,7 @@ const Profile: React.FC = () => {
                 e.preventDefault();
                 console.log({ previousState });
                 await updateUserProfile({
-                  uid: previousState?.uid,
+                  uid: previousState?.uid ?? "",
                   height: previousState?.height,
                   weight: previousState?.weight,
                   description: previousState?.description,
