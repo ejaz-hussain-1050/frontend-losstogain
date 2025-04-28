@@ -75,7 +75,7 @@ const Wrapper: React.FC = () => {
       dispatch(setUserPlans(plans));
       const workouts = await getWorkoutsByUser(user?.uid ?? "");
       dispatch(setUserWorkouts(workouts));
-    } catch (error) {
+    } catch (error: any) {
       console.log(error?.message);
     }
   };

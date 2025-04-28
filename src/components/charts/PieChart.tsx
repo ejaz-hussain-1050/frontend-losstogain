@@ -1,11 +1,6 @@
 // src/components/MyPieChart.tsx
 import React from "react";
-import {
-  Cell,
-  Pie,
-  PieChart as RePieChart,
-  ResponsiveContainer,
-} from "recharts";
+import { Pie, PieChart as RePieChart, ResponsiveContainer } from "recharts";
 
 export interface MyPieChartProps {
   data: { name: string; value: number }[];
@@ -18,7 +13,6 @@ const ConeChart: React.FC<MyPieChartProps> = ({
   data,
   width = "100%",
   height = 300,
-  colors = ["#1E1E1E", "gray"],
 }) => {
   return (
     <div className="h-80 w-80 p-4">
@@ -33,14 +27,7 @@ const ConeChart: React.FC<MyPieChartProps> = ({
             outerRadius={80}
             fill="#8884d8"
             // label
-          >
-            {data.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={colors[index % colors.length]}
-              />
-            ))}
-          </Pie>
+          />
           {/* <Legend /> */}
         </RePieChart>
       </ResponsiveContainer>

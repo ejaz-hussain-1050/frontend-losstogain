@@ -25,7 +25,7 @@ const PlanDetails: React.FC<PlanDetailsProps> = ({ plan }) => {
   const onEnrollPlan = async () => {
     try {
       if (user) {
-        await createWorkoutPlan(plan, user?.uid);
+        await createWorkoutPlan(plan, user?.uid ?? "");
         await storeWorkoutsData();
         toast("Workouts Added For User");
         navigation("/dashboard");

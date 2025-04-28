@@ -38,7 +38,6 @@ export interface UserWorkoutPlan {
   name: string;
   userWorkouts: {
     workout: Workout;
-    progress: UserProgress;
   }[];
 }
 

@@ -1,14 +1,9 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import {
-  deleteWorkout,
-  getWorkoutsByUser,
-  trackProgress,
-} from "../api/workoutApis";
-import { AppDispatch, RootState } from "../store/store";
+import { deleteWorkout, trackProgress } from "../api/workoutApis";
+import { AppDispatch } from "../store/store";
 import { removeUserWorkout } from "../store/userWorkoutSlice";
-import { setWorkouts } from "../store/workoutSlice";
 import { Workout } from "../utils/interfaces";
 import BarChart from "./charts/BarChart";
 
@@ -20,14 +15,8 @@ const WorkoutProgress = ({
   setSelected?: (workout: Workout | undefined) => void;
 }) => {
   const [duration, setDuration] = useState(0);
-  const user = useSelector((state: RootState) => state.auth.user);
 
   const dispatch = useDispatch<AppDispatch>();
-
-  const storeWorkoutsData = async () => {
-    const workouts = await getWorkoutsByUser(user?.uid ?? "");
-    dispatch(setWorkouts(workouts));
-  };
 
   const handleProgressSubmit = async () => {
     try {

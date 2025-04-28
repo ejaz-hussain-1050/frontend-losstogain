@@ -2,9 +2,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface UserState {
-  uid: string;
+  uid?: string;
   fullName?: string;
-  email: string;
+  email?: string;
   age?: number;
   weight?: number;
   height?: number;
@@ -23,8 +23,8 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<UserState | null>) => {
-      state.user = action.payload;
+    setUser: (state, action: PayloadAction<UserState | null | undefined>) => {
+      if (action?.payload) state.user = action.payload;
     },
     logout: (state) => {
       state.user = null;
