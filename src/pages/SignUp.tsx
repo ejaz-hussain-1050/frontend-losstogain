@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signUp } from "../api/auth";
 
 const SignUp: React.FC = () => {
@@ -153,9 +153,9 @@ const SignUp: React.FC = () => {
         </form>
         <p className="mt-4 text-center">
           Already have an account?{" "}
-          <a href="/signin" className="text-primary hover:underline">
+          <Link to="/signin" className="text-primary hover:underline">
             Sign In
-          </a>
+          </Link>
         </p>
       </div>
     </div>
