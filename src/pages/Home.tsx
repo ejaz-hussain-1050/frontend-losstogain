@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { PieChart } from "react-minimal-pie-chart";
 import { useSelector } from "react-redux";
 import BarChart from "../components/charts/BarChart";
 import ConeChart from "../components/charts/PieChart";
@@ -48,16 +47,7 @@ export default function Home() {
       <div className="w-[80%]  h-[100%] p-6 flex flex-col md:flex-row justify-between">
         {/* <LineChart data={dailyWorkoutData} /> */}
         <BarChart data={sampleBarChartData} />
-        <div className="w-[15%]">
-          <PieChart
-            labelPosition={10}
-            data={[
-              { title: "Completed", value: 30, color: "gray" },
-              { title: "Remaining", value: 40, color: "#C13C37" },
-            ]}
-          />
-        </div>
-        ;
+
         <ConeChart data={exerciseDistributionData} />
       </div>
       <div className=" mt-6 w-full  p-20 ">
