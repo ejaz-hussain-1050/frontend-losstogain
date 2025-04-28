@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Blog, IWorkoutPlan, Workout } from "../utils/interfaces";
 
-const API_URL = "http://localhost:3000"; // Adjust based on your backend URL
+const API_URL = "http://localhost:3001"; // Adjust based on your backend URL
 
 export const fetchGeneratedWorkouts = async (
   weight: number,

@@ -2,7 +2,7 @@
 import axios, { AxiosResponse } from "axios";
 import { IWorkoutPlan, Workout } from "../utils/interfaces";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+const API_BASE_URL = "http://localhost:3001";
 
 export interface Progress {
   workoutId: string;
