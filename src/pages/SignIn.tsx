@@ -2,7 +2,7 @@
 // src/pages/SignIn.tsx
 import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../config/firebaseConfig";
 
 const SignIn: React.FC = () => {
@@ -75,9 +75,9 @@ const SignIn: React.FC = () => {
         </form>
         <p className="mt-4 text-center">
           Don't have an account?{" "}
-          <a href="/signup" className="text-primary hover:underline">
+          <Link to={"/signup"} className="text-primary hover:underline">
             Sign Up
-          </a>
+          </Link>
         </p>
       </div>
     </div>
